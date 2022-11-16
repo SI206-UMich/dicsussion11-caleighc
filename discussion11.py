@@ -39,13 +39,19 @@ def create_species_table(cur, conn):
 # TASK 1
 # CREATE TABLE FOR PATIENTS IN DATABASE
 def create_patients_table(cur, conn):
-    pass
+    cur.execute("DROP TABLE IF EXISTS Patients")
+    # Pet id, name (string), species_id (number), age (integer), cuteness (integer),
+    # aggressiveness (number)
+    cur.execute("CREATE TABLE Patients (pet_id INTEGER PRIMARY KEY, name TEXT, species_id INTEGER, age INTEGER, cuteness INTEGER, \
+        aggressiveness INTEGER)")
+    conn.commit()
 
 
 # ADD FLUFFLE TO THE TABLE
 def add_fluffle(cur, conn):
-    pass
-    
+    # Name = Fluffle, species = “Rabbit”, age = 3, cuteness = 90, aggressiveness = 100
+    cur.execute("INSERT INTO Patients (pet_id,name,species_id,age,cuteness,aggressiveness) VALUES (?,?,?,?,?,?)",('0',"Fluffle",'0','3','90','100'))
+    conn.commit()
 
 # TASK 2
 # CODE TO ADD JSON TO THE TABLE
@@ -68,12 +74,10 @@ def non_aggressive_pets(aggressiveness, cur, conn):
     pass
 
 
-
 def main():
     # SETUP DATABASE AND TABLE
     cur, conn = setUpDatabase('animal_hospital.db')
     create_species_table(cur, conn)
-
     create_patients_table(cur, conn)
     add_fluffle(cur, conn)
     add_pets_from_json('pets.json', cur, conn)
