@@ -41,8 +41,7 @@ def create_species_table(cur, conn):
 # CREATE TABLE FOR PATIENTS IN DATABASE
 def create_patients_table(cur, conn):
     cur.execute("DROP TABLE IF EXISTS Patients")
-    # Pet id, name (string), species_id (number), age (integer), cuteness (integer),
-    # aggressiveness (number)
+    # Pet id, name (string), species_id (number), age (integer), cuteness (integer), aggressiveness (number)
     cur.execute("CREATE TABLE Patients (pet_id INTEGER PRIMARY KEY, name TEXT, species_id INTEGER, age INTEGER, cuteness INTEGER, \
         aggressiveness INTEGER)")
     conn.commit()
@@ -86,6 +85,7 @@ def add_pets_from_json(filename, cur, conn):
 def non_aggressive_pets(aggressiveness, cur, conn):
     lstTuple = []
     cur.execute(f"SELECT name FROM Patients WHERE aggressiveness <= '{aggressiveness}'")
+    # fetchall
     rows = cur.fetchall()
     for row in rows:
         lstTuple.append(row[0])
